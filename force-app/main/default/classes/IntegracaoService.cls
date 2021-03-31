@@ -15,7 +15,7 @@ public with sharing class IntegracaoService {
         return instance;
     }
 
-    public MarvelResponseDataWrapper getResponse(String resource) {                
+    public MarvelResponseDataWrapper getResponse(String resource) {        
         manager.send(getEndpoint(resource));
 
         return (MarvelResponseDataWrapper) JSON.deserialize(manager.resp.getBody(), MarvelResponseDataWrapper.class);
