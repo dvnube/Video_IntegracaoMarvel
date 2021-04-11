@@ -1,5 +1,6 @@
 public with sharing class IntegracaoService {
 
+    static FINAL String METHOD_GET = 'GET';
     static IntegracaoService instance;
     static IntegracaoManager manager;
     static Map<String, String> endpoints = new Map<String, String> {
@@ -9,14 +10,14 @@ public with sharing class IntegracaoService {
     public static IntegracaoService getInstance() {
         if (instance == null) {
             instance = new IntegracaoService();
-            manager = new IntegracaoManager();
         }
 
         return instance;
     }
 
-    public MarvelResponseDataWrapper getResponse(String resource) {        
-        manager.send(getEndpoint(resource));
+    public MarvelResponseDataWrapper getResponse(String resource) {    
+        manager = new IntegracaoManager();    
+        manager.send(METHOD_GET, getEndpoint(resource));
 
         return (MarvelResponseDataWrapper) JSON.deserialize(manager.resp.getBody(), MarvelResponseDataWrapper.class);
     }
